@@ -1,5 +1,6 @@
 using CodingDojo.Combat.Characters;
 using CodingDojo.Combat.Turns;
+using NUnit.Framework;
 
 namespace CodingDojo.Combat.Tests
 {
