@@ -72,7 +72,7 @@ from [source repo](https://raw.githubusercontent.com/diegodocs/coding-dojo/main/
     - The Damage will be calculated
         - Actor player run a dice ( act_random 1-8)
         - Target player run a dice ( tgt_random 1-6)
-        - Damage = ((act_mag * act_random ) - (tgt_def * tgt_random)) 
+        - Damage = ((act_mag * act_random ) - (tgt_mag * tgt_random)) 
 1. New Action Magic - Heal (cure HP)
     - Heal will be calculated
         - Actor player run a dice ( act_random 1-6)

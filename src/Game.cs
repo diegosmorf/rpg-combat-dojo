@@ -36,7 +36,7 @@ namespace CodingDojo.Combat
         }
         public void RunTurn(Character actor, Character target)
         {
-            var turn = new AttackAction(config);
+            var turn = new AttackTurn(config);
             turn.Run(actor,target);
 
             if (!target.IsAlive)

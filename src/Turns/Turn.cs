@@ -2,18 +2,13 @@
 
 namespace CodingDojo.Combat.Turns
 {
-    public interface ITurn
-    {
-        ITurnLogInfo? LogInfo { get; }
-        void Run(ICharacter actor, ICharacter target);
-    }
 
     public abstract class Turn(GameConfig config, TurnAction action = TurnAction.Attack) : ITurn
     {
         protected readonly GameConfig config = config;
         protected readonly TurnAction action = action;        
         
-        public ITurnLogInfo? LogInfo { get; protected set; }
+        public ITurnLogInfo LogInfo { get; protected set; } = new TurnLogInfo();
 
         public abstract void Run(ICharacter actor, ICharacter target);
 

@@ -1,8 +1,5 @@
-﻿using System.Xml.Linq;
-
-namespace CodingDojo.Combat.Characters
+﻿namespace CodingDojo.Combat.Characters
 {
-
     public class Character : ICharacter
     {
         public int Level { get; protected set; } = 1;

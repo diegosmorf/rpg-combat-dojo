@@ -2,7 +2,7 @@
 
 namespace CodingDojo.Combat.Turns
 {
-    public class AttackAction(GameConfig config) : Turn(config, TurnAction.Attack)
+    public class AttackTurn(GameConfig config) : Turn(config, TurnAction.Attack)
     {
         public override void Run(ICharacter actor, ICharacter target)
         {            

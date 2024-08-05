@@ -79,7 +79,7 @@ namespace CodingDojo.Combat.Tests
 
             var actor = new Soldier("Soldier Actor");
             var target = new Soldier("Soldier Target");
-            var turn = new AttackAction(config);
+            var turn = new AttackTurn(config);
             var health = target.Health;
 
             //act            
@@ -105,7 +105,7 @@ namespace CodingDojo.Combat.Tests
 
             var actor = new Soldier("Soldier Actor");
             var target = new Soldier("Soldier Target");
-            var turn = new AttackAction(config);
+            var turn = new AttackTurn(config);
 
             //act            
             turn.Run(actor, target);
@@ -201,7 +201,7 @@ namespace CodingDojo.Combat.Tests
         [TestCase(6,6, 210)]
         [TestCase(7,6, 265)]
         [TestCase(8,6, 320)]
-        public void When_RunMagic_To_Soldier_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
+        public void When_Wizard_RunMagic_To_Soldier_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
             var config = new GameConfig()
@@ -212,7 +212,7 @@ namespace CodingDojo.Combat.Tests
 
             var actor = new Wizard("Wizard Actor");
             var target = new Soldier("Soldier Target");
-            var turn = new MagicFireBallAction(config);
+            var turn = new MagicFireBallTurn(config);
             var health = target.Health;
 
             //act            
@@ -236,7 +236,7 @@ namespace CodingDojo.Combat.Tests
         [TestCase(6, 6, 240)]
         [TestCase(7, 6, 295)]
         [TestCase(8, 6, 350)]
-        public void When_RunMagic_To_Knight_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
+        public void When_Wizard_RunMagic_To_Knight_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
             var config = new GameConfig()
@@ -247,7 +247,7 @@ namespace CodingDojo.Combat.Tests
 
             var actor = new Wizard("Wizard Actor");
             var target = new Knight("Knight Target");
-            var turn = new MagicFireBallAction(config);
+            var turn = new MagicFireBallTurn(config);
             var health = target.Health;
 
             //act            
@@ -261,5 +261,147 @@ namespace CodingDojo.Combat.Tests
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
+
+        [TestCase(1, 1, 20)]
+        [TestCase(2, 2, 40)]
+        [TestCase(3, 3, 60)]
+        [TestCase(4, 4, 80)]
+        [TestCase(5, 5, 100)]
+        [TestCase(6, 6, 120)]
+        [TestCase(7, 6, 175)]
+        [TestCase(8, 6, 230)]
+        public void When_Wizard_RunMagic_To_Archer_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
+        {
+            //arrange            
+            var config = new GameConfig()
+            {
+                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
+                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
+            };
+
+            var actor = new Wizard("Wizard Actor");
+            var target = new Archer("Archer Target");
+            var turn = new MagicFireBallTurn(config);
+            var health = target.Health;
+
+            //act            
+            turn.Run(actor, target);
+            //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+            });
+        }
+
+        [TestCase(1, 1, 15)]
+        [TestCase(2, 2, 30)]
+        [TestCase(3, 3, 45)]
+        [TestCase(4, 4, 60)]
+        [TestCase(5, 5, 75)]
+        [TestCase(6, 6, 90)]
+        [TestCase(7, 6, 125)]
+        [TestCase(8, 6, 160)]
+        public void When_Archer_RunMagic_To_Soldier_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
+        {
+            //arrange            
+            var config = new GameConfig()
+            {
+                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
+                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
+            };
+
+            var actor = new Archer("Archer Actor");
+            var target = new Soldier("Soldier Target");
+            var turn = new MagicFireBallTurn(config);
+            var health = target.Health;
+
+            //act            
+            turn.Run(actor, target);
+            //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+            });
+        }
+
+        [TestCase(1, 1, 20)]
+        [TestCase(2, 2, 40)]
+        [TestCase(3, 3, 60)]
+        [TestCase(4, 4, 80)]
+        [TestCase(5, 5, 100)]
+        [TestCase(6, 6, 120)]
+        [TestCase(7, 6, 155)]
+        [TestCase(8, 6, 190)]
+        public void When_Archer_RunMagic_To_Knight_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
+        {
+            //arrange            
+            var config = new GameConfig()
+            {
+                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
+                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
+            };
+
+            var actor = new Archer("Archer Actor");
+            var target = new Knight("Knight Target");
+            var turn = new MagicFireBallTurn(config);
+            var health = target.Health;
+
+            //act            
+            turn.Run(actor, target);
+            //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+            });
+        }
+
+        [TestCase(1, 1, 0)]
+        [TestCase(2, 2, 0)]
+        [TestCase(3, 3, 0)]
+        [TestCase(4, 4, 0)]
+        [TestCase(5, 5, 0)]
+        [TestCase(6, 6, 0)]
+        [TestCase(7, 6, 0)]
+        [TestCase(8, 6, 0)]
+        [TestCase(8, 1, 225)]
+        [TestCase(8, 2, 170)]
+        [TestCase(8, 3, 115)]
+        [TestCase(8, 4, 60)]
+        [TestCase(8, 5, 5)]
+        public void When_Archer_RunMagic_To_Wizard_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
+        {
+            //arrange            
+            var config = new GameConfig()
+            {
+                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
+                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
+            };
+
+            var actor = new Archer("Archer Actor");
+            var target = new Wizard("Wizard Target");
+            var turn = new MagicFireBallTurn(config);
+            var health = target.Health;
+
+            //act            
+            turn.Run(actor, target);
+            //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+            });
+        }
+
     }
 }

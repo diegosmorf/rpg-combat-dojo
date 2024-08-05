@@ -2,7 +2,7 @@
 
 namespace CodingDojo.Combat.Turns
 {
-    public class MagicFireBallAction(GameConfig config) : Turn(config, TurnAction.MagicFireBall)
+    public class MagicFireBallTurn(GameConfig config) : Turn(config, TurnAction.MagicFireBall)
     {
         public override void Run(ICharacter actor, ICharacter target)
         {   
