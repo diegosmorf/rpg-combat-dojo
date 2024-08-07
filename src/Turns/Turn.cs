@@ -38,5 +38,18 @@ namespace CodingDojo.Combat.Turns
                 }
             };
         }
+
+        protected void Log(ICharacter actor, int actorDiceValue, int healthToIncrease)
+        {
+            LogInfo = new TurnLogInfo()
+            {
+                Actor = actor.Copy(),                
+                HealthToIncrease = healthToIncrease,
+                Dice = new DiceLogInfo()
+                {
+                    ActorValue = actorDiceValue                    
+                }
+            };
+        }
     }
 }

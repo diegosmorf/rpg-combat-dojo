@@ -7,6 +7,7 @@ namespace CodingDojo.Combat.Turns
         ICharacter? Actor { get; set; }
         IDiceLogInfo? Dice { get; set; }
         int Damage { get; set; }
+        int HealthToIncrease { get; set; }
         ICharacter? Target { get; set; }
         TurnAction Action { get; set; }
     }

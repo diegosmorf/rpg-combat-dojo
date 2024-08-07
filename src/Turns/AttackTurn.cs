@@ -11,7 +11,7 @@ namespace CodingDojo.Combat.Turns
             var targetDiceValue = normalDice.Roll();
 
             var damage = CalculateDamage(actor.Strength, target.Defense, actorDiceValue, targetDiceValue);
-            target.ApplyDamage(damage);
+            target.Health.Value -= damage;
 
             Log(actor, target, damage, actorDiceValue, targetDiceValue);
         }        

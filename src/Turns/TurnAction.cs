@@ -3,6 +3,7 @@
     public enum TurnAction
     {
         Attack,
-        MagicFireBall
+        MagicFireBall,
+        MagicHeal
     }
 }

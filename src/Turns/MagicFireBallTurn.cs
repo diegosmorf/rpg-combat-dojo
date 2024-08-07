@@ -1,4 +1,5 @@
 ﻿using CodingDojo.Combat.Characters;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CodingDojo.Combat.Turns
 {
@@ -12,7 +13,7 @@ namespace CodingDojo.Combat.Turns
             var targetDiceValue = normalDice.Roll();
 
             var damage = CalculateDamage(actor.Magic, target.Magic, actorDiceValue, targetDiceValue);
-            target.ApplyDamage(damage);
+            target.Health.Value -= damage;
 
             this.Log(actor, target, damage, actorDiceValue, targetDiceValue);
         }

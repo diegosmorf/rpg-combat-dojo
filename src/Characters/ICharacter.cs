@@ -4,13 +4,12 @@
     {
         int Level { get; }
         string Name { get; }
-        int Health { get; }
+        InfoPoints Health { get; }
         int Strength { get; }
         int Defense { get; }
         int Magic { get; }
         bool IsAlive { get; }
-        CharacterJob Job { get; }
-        void ApplyDamage(int damage);
+        CharacterJob Job { get; }        
         ICharacter Copy();
     }
 }

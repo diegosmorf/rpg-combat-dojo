@@ -57,7 +57,7 @@ namespace CodingDojo.Combat.Tests
             //assert
             Assert.Multiple(() =>
             {
-                Assert.That(player.Health, Is.EqualTo(soldier.Health));
+                Assert.That(player.Health.Value, Is.EqualTo(soldier.Health.Value));
                 Assert.That(player.Level, Is.EqualTo(soldier.Level));
                 Assert.That(player.Strength, Is.EqualTo(soldier.Strength));
                 Assert.That(player.Defense, Is.EqualTo(soldier.Defense));
@@ -81,14 +81,14 @@ namespace CodingDojo.Combat.Tests
             var actor = new Soldier("Soldier Actor");
             var target = new Soldier("Soldier Target");
             var turn = new AttackTurn(config);
-            var health = target.Health;
+            var health = target.Health.Value;
 
             //act            
             turn.Run(actor, target);
             //assert
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
@@ -128,7 +128,7 @@ namespace CodingDojo.Combat.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(info1.Name, Is.EqualTo(info2.Name));
-                Assert.That(info1.Health, Is.EqualTo(info2.Health));
+                Assert.That(info1.Health.Value, Is.EqualTo(info2.Health.Value));
                 Assert.That(info1.Strength, Is.EqualTo(info2.Strength));
                 Assert.That(info1.Defense, Is.EqualTo(info2.Defense));
                 Assert.That(info1.Level, Is.EqualTo(info2.Level));
@@ -186,10 +186,9 @@ namespace CodingDojo.Combat.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(game.Winner.IsAlive, Is.True);
-                Assert.That(game.Winner.Health, Is.GreaterThan(0));
-                Assert.That(game.Looser.IsAlive, Is.False);
-                Assert.That(game.Looser.IsAlive, Is.False);
-                Assert.That(game.Looser.Health, Is.EqualTo(0));
+                Assert.That(game.Winner.Health.Value, Is.GreaterThan(0));
+                Assert.That(game.Looser.IsAlive, Is.False);                
+                Assert.That(game.Looser.Health.Value, Is.EqualTo(0));
             });
 
         }
@@ -214,7 +213,7 @@ namespace CodingDojo.Combat.Tests
             var actor = new Wizard("Wizard Actor");
             var target = new Soldier("Soldier Target");
             var turn = new MagicFireBallTurn(config);
-            var health = target.Health;
+            var health = target.Health.Value;
 
             //act            
             turn.Run(actor, target);
@@ -223,7 +222,7 @@ namespace CodingDojo.Combat.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
@@ -249,7 +248,7 @@ namespace CodingDojo.Combat.Tests
             var actor = new Wizard("Wizard Actor");
             var target = new Knight("Knight Target");
             var turn = new MagicFireBallTurn(config);
-            var health = target.Health;
+            var health = target.Health.Value;
 
             //act            
             turn.Run(actor, target);
@@ -258,7 +257,7 @@ namespace CodingDojo.Combat.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
@@ -283,7 +282,7 @@ namespace CodingDojo.Combat.Tests
             var actor = new Wizard("Wizard Actor");
             var target = new Archer("Archer Target");
             var turn = new MagicFireBallTurn(config);
-            var health = target.Health;
+            var health = target.Health.Value;
 
             //act            
             turn.Run(actor, target);
@@ -292,7 +291,7 @@ namespace CodingDojo.Combat.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
@@ -317,7 +316,7 @@ namespace CodingDojo.Combat.Tests
             var actor = new Archer("Archer Actor");
             var target = new Soldier("Soldier Target");
             var turn = new MagicFireBallTurn(config);
-            var health = target.Health;
+            var health = target.Health.Value;
 
             //act            
             turn.Run(actor, target);
@@ -326,7 +325,7 @@ namespace CodingDojo.Combat.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
@@ -351,7 +350,7 @@ namespace CodingDojo.Combat.Tests
             var actor = new Archer("Archer Actor");
             var target = new Knight("Knight Target");
             var turn = new MagicFireBallTurn(config);
-            var health = target.Health;
+            var health = target.Health.Value;
 
             //act            
             turn.Run(actor, target);
@@ -360,7 +359,7 @@ namespace CodingDojo.Combat.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
@@ -390,7 +389,7 @@ namespace CodingDojo.Combat.Tests
             var actor = new Archer("Archer Actor");
             var target = new Wizard("Wizard Target");
             var turn = new MagicFireBallTurn(config);
-            var health = target.Health;
+            var health = target.Health.Value;
 
             //act            
             turn.Run(actor, target);
@@ -399,10 +398,41 @@ namespace CodingDojo.Combat.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health, Is.EqualTo(health - turn.LogInfo.Damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
             });
         }
 
+
+        [TestCase(1, 100, 155)]
+        [TestCase(2, 100, 210)]
+        [TestCase(3, 100, 265)]
+        [TestCase(4, 100, 320)]
+        [TestCase(5, 100, 375)]
+        [TestCase(6, 100, 400)]
+        [TestCase(7, 100, 400)]
+        [TestCase(8, 100, 400)]
+        public void When_Wizard_RunHealMagic_Then_IncreaseHealth(int magicDiceValue, int initialHealth, int expectedHealth)
+        {
+            //arrange            
+            var config = new GameConfig()
+            {
+                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
+            };
+
+            var actor = new Wizard("Wizard Actor");            
+            var turn = new MagicHealTurn(config);
+
+            //act            
+            actor.Health.Value = initialHealth;
+            turn.Run(actor, actor);
+            //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(actor.Health.Value, Is.EqualTo(expectedHealth));
+            });
+        }
     }
 }
