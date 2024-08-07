@@ -1,7 +1,6 @@
-﻿using CodingDojo.Combat.Characters;
-
-namespace CodingDojo.Combat.Turns
+﻿namespace CodingDojo.Combat.Contracts
 {
+
     public interface ITurn
     {
         ITurnLogInfo? LogInfo { get; }

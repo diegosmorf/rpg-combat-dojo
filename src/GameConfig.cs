@@ -1,9 +1,11 @@
-﻿namespace CodingDojo.Combat
+﻿using CodingDojo.Combat.Contracts;
+
+namespace CodingDojo.Combat
 {
-    public class GameConfig
+    public class GameConfig(IDice normalDice, IDice magicDice, ITurnConfig turnConfig) : IGameConfig
     {
-        public IDiceConfig NormalDice { get; set; } = new DiceConfig();
-        public IDiceConfig MagicDice { get; set; } = new DiceConfig();
-        public int MaxTurns { get; set; } = 100;
+        public IDice NormalDice { get; protected set; } = normalDice;
+        public IDice MagicDice { get; protected set; } = magicDice;
+        public ITurnConfig TurnConfig { get; protected set; } = turnConfig;
     }
 }

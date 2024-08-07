@@ -1,6 +1,6 @@
-﻿using CodingDojo.Combat.Characters;
+﻿using CodingDojo.Combat.Turns;
 
-namespace CodingDojo.Combat.Turns
+namespace CodingDojo.Combat.Contracts
 {
     public interface ITurnLogInfo
     {

@@ -1,13 +1,12 @@
-﻿using CodingDojo.Combat.Characters;
+﻿using CodingDojo.Combat.Contracts;
+using CodingDojo.Combat.Dices;
 
 namespace CodingDojo.Combat.Turns
 {
-
-    public abstract class Turn(GameConfig config, TurnAction action = TurnAction.Attack) : ITurn
+    public abstract class Turn(TurnAction action = TurnAction.Attack) : ITurn
     {
-        protected readonly GameConfig config = config;
-        protected readonly TurnAction action = action;        
-        
+        protected readonly TurnAction action = action;
+
         public ITurnLogInfo LogInfo { get; protected set; } = new TurnLogInfo();
 
         public abstract void Run(ICharacter actor, ICharacter target);
@@ -43,11 +42,11 @@ namespace CodingDojo.Combat.Turns
         {
             LogInfo = new TurnLogInfo()
             {
-                Actor = actor.Copy(),                
+                Actor = actor.Copy(),
                 HealthToIncrease = healthToIncrease,
                 Dice = new DiceLogInfo()
                 {
-                    ActorValue = actorDiceValue                    
+                    ActorValue = actorDiceValue
                 }
             };
         }

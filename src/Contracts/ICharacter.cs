@@ -1,4 +1,6 @@
-﻿namespace CodingDojo.Combat.Characters
+﻿using CodingDojo.Combat.Characters;
+
+namespace CodingDojo.Combat.Contracts
 {
     public interface ICharacter
     {
@@ -9,7 +11,7 @@
         int Defense { get; }
         int Magic { get; }
         bool IsAlive { get; }
-        CharacterJob Job { get; }        
+        CharacterJob Job { get; }
         ICharacter Copy();
     }
 }

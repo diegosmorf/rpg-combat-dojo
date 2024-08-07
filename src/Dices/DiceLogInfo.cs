@@ -1,4 +1,6 @@
-﻿namespace CodingDojo.Combat.Turns
+﻿using CodingDojo.Combat.Contracts;
+
+namespace CodingDojo.Combat.Dices
 {
     public class DiceLogInfo : IDiceLogInfo
     {

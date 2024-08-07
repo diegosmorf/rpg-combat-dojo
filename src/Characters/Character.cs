@@ -1,4 +1,6 @@
-﻿namespace CodingDojo.Combat.Characters
+﻿using CodingDojo.Combat.Contracts;
+
+namespace CodingDojo.Combat.Characters
 {
 
     public class Character : ICharacter

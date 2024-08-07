@@ -1,14 +1,14 @@
-﻿using CodingDojo.Combat.Characters;
-using static System.Net.Mime.MediaTypeNames;
+﻿using CodingDojo.Combat.Contracts;
 
 namespace CodingDojo.Combat.Turns
 {
-    public class MagicFireBallTurn(GameConfig config) : Turn(config, TurnAction.MagicFireBall)
+    public class MagicFireBallTurn(IDice normalDice, IDice magicDice) : Turn( TurnAction.MagicFireBall)
     {
+        private readonly IDice normalDice = normalDice;
+        private readonly IDice magicDice = magicDice;
+
         public override void Run(ICharacter actor, ICharacter target)
-        {   
-            var magicDice = new Dice(config.MagicDice);
-            var normalDice = new Dice(config.NormalDice);            
+        {            
             var actorDiceValue = magicDice.Roll();
             var targetDiceValue = normalDice.Roll();
 

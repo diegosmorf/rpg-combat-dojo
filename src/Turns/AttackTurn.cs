@@ -1,12 +1,13 @@
-﻿using CodingDojo.Combat.Characters;
+﻿using CodingDojo.Combat.Contracts;
 
 namespace CodingDojo.Combat.Turns
 {
-    public class AttackTurn(GameConfig config) : Turn(config, TurnAction.Attack)
+    public class AttackTurn(IDice normalDice) : Turn(TurnAction.Attack)
     {
+        private readonly IDice normalDice = normalDice;
+
         public override void Run(ICharacter actor, ICharacter target)
-        {            
-            var normalDice = new Dice(config.NormalDice);
+        {
             var actorDiceValue = normalDice.Roll();
             var targetDiceValue = normalDice.Roll();
 
@@ -14,6 +15,6 @@ namespace CodingDojo.Combat.Turns
             target.Health.Value -= damage;
 
             Log(actor, target, damage, actorDiceValue, targetDiceValue);
-        }        
+        }
     }
 }

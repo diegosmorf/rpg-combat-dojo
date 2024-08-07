@@ -1,4 +1,4 @@
-﻿namespace CodingDojo.Combat.Turns
+﻿namespace CodingDojo.Combat.Contracts
 {
     public interface IDice
     {

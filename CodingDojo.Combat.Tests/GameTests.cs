@@ -1,4 +1,6 @@
 using CodingDojo.Combat.Characters;
+using CodingDojo.Combat.Contracts;
+using CodingDojo.Combat.Dices;
 using CodingDojo.Combat.Turns;
 using NUnit.Framework;
 
@@ -10,7 +12,9 @@ namespace CodingDojo.Combat.Tests
         public void When_Default_Game_Start_Then_Two_Players_Created()
         {
             //arrange
-            var config = new GameConfig();
+            var normalDice = new FakeDice(new NormalDiceConfig());
+            var turnConfig = new TurnConfig();
+            var config = new GameConfig(normalDice, normalDice, turnConfig);
             var game = new Game(config);
             var numberOfPlayers = 2;
             //act
@@ -24,7 +28,9 @@ namespace CodingDojo.Combat.Tests
         public void When_Default_Game_Start_Then_Two_Soldiers_Created()
         {
             //arrange
-            var config = new GameConfig();
+            var normalDice = new FakeDice(new NormalDiceConfig());
+            var turnConfig = new TurnConfig();
+            var config = new GameConfig(normalDice, normalDice, turnConfig);
             var game = new Game(config);
 
             //act
@@ -49,7 +55,7 @@ namespace CodingDojo.Combat.Tests
             Assert.That(exception.Message, Is.EqualTo(message));
 
         }
-        protected static void AssertDefaultPlayer(Character player)
+        protected static void AssertDefaultPlayer(ICharacter player)
         {
             //arrange
             var soldier = new Soldier();
@@ -76,11 +82,10 @@ namespace CodingDojo.Combat.Tests
         public void When_RunAttack_Then_ApplyDamage(int diceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig() { NormalDice = new DiceConfig(diceValue, diceValue) };
-
+            var normalDice = new FakeDice(new DiceConfig(diceValue));
             var actor = new Soldier("Soldier Actor");
             var target = new Soldier("Soldier Target");
-            var turn = new AttackTurn(config);
+            var turn = new AttackTurn(normalDice);
             var health = target.Health.Value;
 
             //act            
@@ -102,11 +107,10 @@ namespace CodingDojo.Combat.Tests
         public void When_RunAttack_Soldier_Then_LogInfo(int diceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig() { NormalDice = new DiceConfig(diceValue, diceValue) };
-
+            var normalDice = new FakeDice(new DiceConfig(diceValue));
             var actor = new Soldier("Soldier Actor");
             var target = new Soldier("Soldier Target");
-            var turn = new AttackTurn(config);
+            var turn = new AttackTurn(normalDice);
 
             //act            
             turn.Run(actor, target);
@@ -145,7 +149,9 @@ namespace CodingDojo.Combat.Tests
         public void When_Game_Start_Then_RunTurns_Until_EndOfGame(int diceValue, int maxTurns)
         {
             //arrange            
-            var config = new GameConfig() { NormalDice = new DiceConfig(diceValue, diceValue), MaxTurns = maxTurns };
+            var normalDice = new FakeDice(new DiceConfig(diceValue));
+            var turnConfig = new TurnConfig(maxTurns);
+            var config = new GameConfig(normalDice, normalDice, turnConfig);
             var game = new Game(config);
 
             //act                        
@@ -169,7 +175,9 @@ namespace CodingDojo.Combat.Tests
         public void When_Game_Ends_Then_Valid_Winner_And_Looser(int diceValue)
         {
             //arrange            
-            var config = new GameConfig() { NormalDice = new DiceConfig(diceValue, diceValue) };
+            var normalDice = new FakeDice(new DiceConfig(diceValue));
+            var turnConfig = new TurnConfig();
+            var config = new GameConfig(normalDice, normalDice, turnConfig);
             var game = new Game(config);
 
             //act                        
@@ -187,32 +195,29 @@ namespace CodingDojo.Combat.Tests
             {
                 Assert.That(game.Winner.IsAlive, Is.True);
                 Assert.That(game.Winner.Health.Value, Is.GreaterThan(0));
-                Assert.That(game.Looser.IsAlive, Is.False);                
+                Assert.That(game.Looser.IsAlive, Is.False);
                 Assert.That(game.Looser.Health.Value, Is.EqualTo(0));
             });
 
         }
 
-        [TestCase(1,1, 35)]
-        [TestCase(2,2, 70)]
-        [TestCase(3,3, 105)]
-        [TestCase(4,4, 140)]
-        [TestCase(5,5, 175)]
-        [TestCase(6,6, 210)]
-        [TestCase(7,6, 265)]
-        [TestCase(8,6, 320)]
+        [TestCase(1, 1, 35)]
+        [TestCase(2, 2, 70)]
+        [TestCase(3, 3, 105)]
+        [TestCase(4, 4, 140)]
+        [TestCase(5, 5, 175)]
+        [TestCase(6, 6, 210)]
+        [TestCase(7, 6, 265)]
+        [TestCase(8, 6, 320)]
         public void When_Wizard_RunMagic_To_Soldier_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig()
-            {
-                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
-                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
-            };
+            var normalDice = new FakeDice(new DiceConfig(normalDiceValue));
+            var magicDice = new FakeDice(new DiceConfig(magicDiceValue));
 
             var actor = new Wizard("Wizard Actor");
             var target = new Soldier("Soldier Target");
-            var turn = new MagicFireBallTurn(config);
+            var turn = new MagicFireBallTurn(normalDice, magicDice);
             var health = target.Health.Value;
 
             //act            
@@ -239,15 +244,12 @@ namespace CodingDojo.Combat.Tests
         public void When_Wizard_RunMagic_To_Knight_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig()
-            {
-                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
-                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
-            };
+            var normalDice = new FakeDice(new DiceConfig(normalDiceValue));
+            var magicDice = new FakeDice(new DiceConfig(magicDiceValue));
 
             var actor = new Wizard("Wizard Actor");
             var target = new Knight("Knight Target");
-            var turn = new MagicFireBallTurn(config);
+            var turn = new MagicFireBallTurn(normalDice, magicDice);
             var health = target.Health.Value;
 
             //act            
@@ -273,15 +275,12 @@ namespace CodingDojo.Combat.Tests
         public void When_Wizard_RunMagic_To_Archer_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig()
-            {
-                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
-                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
-            };
+            var normalDice = new FakeDice(new DiceConfig(normalDiceValue));
+            var magicDice = new FakeDice(new DiceConfig(magicDiceValue));
 
             var actor = new Wizard("Wizard Actor");
             var target = new Archer("Archer Target");
-            var turn = new MagicFireBallTurn(config);
+            var turn = new MagicFireBallTurn(normalDice, magicDice);
             var health = target.Health.Value;
 
             //act            
@@ -307,15 +306,12 @@ namespace CodingDojo.Combat.Tests
         public void When_Archer_RunMagic_To_Soldier_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig()
-            {
-                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
-                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
-            };
+            var normalDice = new FakeDice(new DiceConfig(normalDiceValue));
+            var magicDice = new FakeDice(new DiceConfig(magicDiceValue));
 
             var actor = new Archer("Archer Actor");
             var target = new Soldier("Soldier Target");
-            var turn = new MagicFireBallTurn(config);
+            var turn = new MagicFireBallTurn(normalDice, magicDice);
             var health = target.Health.Value;
 
             //act            
@@ -341,15 +337,12 @@ namespace CodingDojo.Combat.Tests
         public void When_Archer_RunMagic_To_Knight_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig()
-            {
-                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
-                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
-            };
+            var normalDice = new FakeDice(new DiceConfig(normalDiceValue));
+            var magicDice = new FakeDice(new DiceConfig(magicDiceValue));
 
             var actor = new Archer("Archer Actor");
             var target = new Knight("Knight Target");
-            var turn = new MagicFireBallTurn(config);
+            var turn = new MagicFireBallTurn(normalDice, magicDice);
             var health = target.Health.Value;
 
             //act            
@@ -380,15 +373,12 @@ namespace CodingDojo.Combat.Tests
         public void When_Archer_RunMagic_To_Wizard_Then_ApplyDamage(int magicDiceValue, int normalDiceValue, int damage)
         {
             //arrange            
-            var config = new GameConfig()
-            {
-                NormalDice = new DiceConfig(normalDiceValue, normalDiceValue),
-                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
-            };
+            var normalDice = new FakeDice(new DiceConfig(normalDiceValue));
+            var magicDice = new FakeDice(new DiceConfig(magicDiceValue));
 
             var actor = new Archer("Archer Actor");
             var target = new Wizard("Wizard Target");
-            var turn = new MagicFireBallTurn(config);
+            var turn = new MagicFireBallTurn(normalDice, magicDice);
             var health = target.Health.Value;
 
             //act            
@@ -415,13 +405,10 @@ namespace CodingDojo.Combat.Tests
         public void When_Wizard_RunHealMagic_Then_IncreaseHealth(int magicDiceValue, int initialHealth, int expectedHealth)
         {
             //arrange            
-            var config = new GameConfig()
-            {
-                MagicDice = new DiceConfig(magicDiceValue, magicDiceValue)
-            };
+            var magicDice = new FakeDice(new DiceConfig(magicDiceValue));
 
-            var actor = new Wizard("Wizard Actor");            
-            var turn = new MagicHealTurn(config);
+            var actor = new Wizard("Wizard Actor");
+            var turn = new MagicHealTurn(magicDice);
 
             //act            
             actor.Health.Value = initialHealth;

@@ -1,4 +1,4 @@
-﻿using CodingDojo.Combat.Characters;
+﻿using CodingDojo.Combat.Contracts;
 
 namespace CodingDojo.Combat.Turns
 {

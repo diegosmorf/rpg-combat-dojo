@@ -1,8 +1,8 @@
-﻿namespace CodingDojo.Combat
+﻿namespace CodingDojo.Combat.Contracts
 {
     public interface IDiceConfig
     {
-        int Min { get; } 
+        int Min { get; }
         int Max { get; }
     }
 }

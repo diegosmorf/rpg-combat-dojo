@@ -1,18 +1,19 @@
 ﻿using CodingDojo.Combat.Characters;
+using CodingDojo.Combat.Contracts;
 using CodingDojo.Combat.Turns;
 
 namespace CodingDojo.Combat
 {
-    public class Game(GameConfig config)
+    public class Game(IGameConfig config)
     {
-        protected readonly GameConfig config = config;
+        protected readonly IGameConfig config = config;
 
         public int ProcessedTurns { get { return Turns.Count; } }
-        public Character? Winner { get; private set; }
-        public Character? Looser { get; private set; }
-        public bool IsEndOfGame { get { return Winner != null || ProcessedTurns >= config.MaxTurns; } }
-        public List<Character> Players { get; private set; } = [];
-        public List<Turn> Turns { get; private set; } = [];
+        public ICharacter? Winner { get; private set; }
+        public ICharacter? Looser { get; private set; }
+        public bool IsEndOfGame { get { return Winner != null || ProcessedTurns >= config.TurnConfig.MaxTurns; } }
+        public List<ICharacter> Players { get; private set; } = [];
+        public List<ITurn> Turns { get; private set; } = [];
         public void RunTurns()
         {
             int indexActor = 0;
@@ -34,10 +35,10 @@ namespace CodingDojo.Combat
                 }
             }
         }
-        public void RunTurn(Character actor, Character target)
+        public void RunTurn(ICharacter actor, ICharacter target)
         {
-            var turn = new AttackTurn(config);
-            turn.Run(actor,target);
+            var turn = new AttackTurn(config.NormalDice);
+            turn.Run(actor, target);
 
             if (!target.IsAlive)
             {
@@ -53,7 +54,7 @@ namespace CodingDojo.Combat
             AddPlayer("Soldier 2");
         }
         protected void AddPlayer(string name)
-        {            
+        {
             Players.Add(new Soldier(name));
         }
     }
