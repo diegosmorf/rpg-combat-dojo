@@ -1,4 +1,5 @@
-﻿using CodingDojo.Combat.Contracts;
+﻿using CodingDojo.Combat.Actions;
+using CodingDojo.Combat.Contracts;
 
 namespace CodingDojo.Combat.Turns
 {
@@ -9,6 +10,6 @@ namespace CodingDojo.Combat.Turns
         public int Damage { get; set; }
         public int HealthToIncrease { get; set; }
         public ICharacter? Target { get; set; }
-        public TurnAction Action { get; set; }
+        public ActionType Action { get; set; }
     }
 }

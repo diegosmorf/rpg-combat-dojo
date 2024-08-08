@@ -6,7 +6,7 @@ namespace CodingDojo.Combat.Contracts
     {
         int Level { get; }
         string Name { get; }
-        InfoPoints Health { get; }
+        HealthPoints Health { get; }
         int Strength { get; }
         int Defense { get; }
         int Magic { get; }

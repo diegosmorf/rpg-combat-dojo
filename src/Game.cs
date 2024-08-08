@@ -1,4 +1,5 @@
-﻿using CodingDojo.Combat.Characters;
+﻿using CodingDojo.Combat.Actions;
+using CodingDojo.Combat.Characters;
 using CodingDojo.Combat.Contracts;
 using CodingDojo.Combat.Turns;
 
@@ -10,52 +11,58 @@ namespace CodingDojo.Combat
 
         public int ProcessedTurns { get { return Turns.Count; } }
         public ICharacter? Winner { get; private set; }
-        public ICharacter? Looser { get; private set; }
+        public ICharacter? Looser { get; protected set; }
         public bool IsEndOfGame { get { return Winner != null || ProcessedTurns >= config.TurnConfig.MaxTurns; } }
-        public List<ICharacter> Players { get; private set; } = [];
-        public List<ITurn> Turns { get; private set; } = [];
-        public void RunTurns()
+        public List<ICharacter> Players { get; protected set; } = [];
+        public List<ITurn> Turns { get; protected set; } = [];
+        public void RunBattle()
         {
-            int indexActor = 0;
-            int indexTarget = 1;
-
             while (!IsEndOfGame)
             {
-                RunTurn(Players[indexActor], Players[indexTarget]);
+                foreach (var actor in Players)
+                {
+                    var target = Players.Single(p => p != actor);
 
-                if (indexActor == 1)
-                {
-                    indexActor = 0;
-                    indexTarget = 1;
-                }
-                else
-                {
-                    indexActor = 1;
-                    indexTarget = 0;
+                    var action = GetAction(actor,target);
+                    var turn = new Turn(action);
+                    turn.Run(actor, target);
+                    Turns.Add(turn);
+
+                    if (!target.IsAlive)
+                    {
+                        Winner = actor;
+                        Looser = target;
+                        break;
+                    }
                 }
             }
         }
-        public void RunTurn(ICharacter actor, ICharacter target)
+
+        private IBaseAction GetAction(ICharacter actor, ICharacter target)
         {
-            var turn = new AttackTurn(config.NormalDice);
-            turn.Run(actor, target);
-
-            if (!target.IsAlive)
+            if(actor.Health.Value <= 200)
             {
-                Winner = actor;
-                Looser = target;
+                target = actor;
+                return new MagicHealAction(config.MagicDice);
             }
 
-            Turns.Add(turn);
+            if (actor is Wizard )
+            {
+                return new MagicFireBallAction(config.NormalDice, config.MagicDice);
+            }
+
+            if (actor is Archer && target is not Wizard)
+            {
+                return new MagicFireBallAction(config.NormalDice, config.MagicDice);
+            }
+
+            return new AttackAction(config.NormalDice);
         }
+
         public void DefaultSetup()
         {
-            AddPlayer("Soldier 1");
-            AddPlayer("Soldier 2");
-        }
-        protected void AddPlayer(string name)
-        {
-            Players.Add(new Soldier(name));
+            Players.Add(new Soldier("Soldier 1"));
+            Players.Add(new Soldier("Soldier 2"));
         }
     }
 }

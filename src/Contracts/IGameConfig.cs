@@ -4,6 +4,6 @@
     {
         IDice NormalDice { get; }
         IDice MagicDice { get; }
-        ITurnConfig TurnConfig { get; }
+        ITurnConfig TurnConfig { get; }        
     }
 }

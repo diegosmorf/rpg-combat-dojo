@@ -1,6 +1,6 @@
-﻿namespace CodingDojo.Combat.Turns
+﻿namespace CodingDojo.Combat.Actions
 {
-    public enum TurnAction
+    public enum ActionType
     {
         Attack,
         MagicFireBall,

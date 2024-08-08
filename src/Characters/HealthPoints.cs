@@ -1,10 +1,10 @@
 ﻿namespace CodingDojo.Combat.Characters
 {
-    public class InfoPoints
+    public class HealthPoints(int currentValue = 0, int minValue = 0, int maxValue = 0)
     {
-        protected int currentValue;
-        private readonly int minValue;
-        private readonly int maxValue;
+        protected int currentValue = currentValue;
+        private readonly int minValue = minValue;
+        private readonly int maxValue = maxValue;
 
         public int Value
         {
@@ -22,15 +22,8 @@
             }
         }
 
-        public InfoPoints(int maxValue): this(maxValue, 0, maxValue)
+        public HealthPoints(int maxValue): this(maxValue, 0, maxValue)
         {
-        }       
-
-        public InfoPoints(int currentValue = 0, int minValue = 0, int maxValue = 0)
-        {
-            this.currentValue = currentValue;
-            this.minValue = minValue;
-            this.maxValue = maxValue;
         }
     }
 }

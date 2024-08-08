@@ -3,7 +3,7 @@
 
     public interface ITurn
     {
-        ITurnLogInfo? LogInfo { get; }
+        ITurnLogInfo LogInfo { get; }
         void Run(ICharacter actor, ICharacter target);
     }
 }

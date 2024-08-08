@@ -7,7 +7,7 @@ namespace CodingDojo.Combat.Characters
     {
         public int Level { get; protected set; } = 1;
         public string Name { get; protected set; }
-        public InfoPoints Health { get; protected set; }
+        public HealthPoints Health { get; protected set; }
         public int Strength { get; protected set; }
         public int Defense { get; protected set; }
         public int Magic { get; protected set; }
@@ -23,7 +23,7 @@ namespace CodingDojo.Combat.Characters
                 throw new ArgumentException("Name max length is 20 chars");
 
             Name = name;
-            Health = new InfoPoints(health);
+            Health = new HealthPoints(health);
             Strength = strength;
             Defense = defense;
             Magic = magic;
