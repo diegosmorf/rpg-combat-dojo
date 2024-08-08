@@ -4,7 +4,7 @@ namespace CodingDojo.Combat.Dices
 {
     public class DiceConfig(int min, int max) : IDiceConfig
     {
-        public DiceConfig(int uniqueValue): this(uniqueValue, uniqueValue)
+        public DiceConfig(int uniqueValue) : this(uniqueValue, uniqueValue)
         {
         }
 

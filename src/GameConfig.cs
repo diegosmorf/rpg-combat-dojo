@@ -17,6 +17,6 @@ namespace CodingDojo.Combat
 
         public IDice NormalDice { get; protected set; }
         public IDice MagicDice { get; protected set; }
-        public ITurnConfig TurnConfig { get; protected set; }        
+        public ITurnConfig TurnConfig { get; protected set; }
     }
 }

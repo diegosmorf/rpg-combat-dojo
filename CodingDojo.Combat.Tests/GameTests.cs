@@ -423,7 +423,7 @@ namespace CodingDojo.Combat.Tests
                 Assert.That(actor.Health.Value, Is.EqualTo(expectedHealth));
             });
         }
-        
+
         [TestCase(CharacterJob.Soldier, CharacterJob.Soldier, 100)]
         [TestCase(CharacterJob.Soldier, CharacterJob.Archer, 100)]
         [TestCase(CharacterJob.Soldier, CharacterJob.Wizard, 100)]
@@ -440,7 +440,7 @@ namespace CodingDojo.Combat.Tests
         [TestCase(CharacterJob.Knight, CharacterJob.Archer, 100)]
         [TestCase(CharacterJob.Knight, CharacterJob.Wizard, 100)]
         [TestCase(CharacterJob.Knight, CharacterJob.Knight, 100)]
-        public void When_Game_Start_Then_RunTurns_Until_EndOfGame(CharacterJob job1, CharacterJob job2,  int maxTurns)
+        public void When_Game_Start_Then_RunTurns_Until_EndOfGame(CharacterJob job1, CharacterJob job2, int maxTurns)
         {
             //arrange                        
             var game = CreateGame(maxTurns);

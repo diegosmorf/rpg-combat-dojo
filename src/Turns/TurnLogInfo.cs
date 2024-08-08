@@ -3,7 +3,7 @@ using CodingDojo.Combat.Contracts;
 
 namespace CodingDojo.Combat.Turns
 {
-    public class TurnLogInfo: ITurnLogInfo
+    public class TurnLogInfo : ITurnLogInfo
     {
         public ICharacter? Actor { get; set; }
         public IDiceLogInfo? Dice { get; set; }

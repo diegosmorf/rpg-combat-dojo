@@ -23,7 +23,7 @@ namespace CodingDojo.Combat
                 {
                     var target = Players.Single(p => p != actor);
 
-                    var action = GetAction(actor,target);
+                    var action = GetAction(actor, target);
                     var turn = new Turn(action);
                     turn.Run(actor, target);
                     Turns.Add(turn);
@@ -40,13 +40,13 @@ namespace CodingDojo.Combat
 
         private IBaseAction GetAction(ICharacter actor, ICharacter target)
         {
-            if(actor.Health.Value <= 200)
+            if (actor.Health.Value <= 200)
             {
                 target = actor;
                 return new MagicHealAction(config.MagicDice);
             }
 
-            if (actor is Wizard )
+            if (actor is Wizard)
             {
                 return new MagicFireBallAction(config.NormalDice, config.MagicDice);
             }

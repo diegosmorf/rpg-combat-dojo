@@ -1,5 +1,5 @@
-﻿using System.Security.Cryptography;
-using CodingDojo.Combat.Contracts;
+﻿using CodingDojo.Combat.Contracts;
+using System.Security.Cryptography;
 
 namespace CodingDojo.Combat.Dices
 {

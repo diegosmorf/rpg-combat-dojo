@@ -1,5 +1,4 @@
-﻿using CodingDojo.Combat.Actions;
-using CodingDojo.Combat.Contracts;
+﻿using CodingDojo.Combat.Contracts;
 
 namespace CodingDojo.Combat.Turns
 {

@@ -13,16 +13,16 @@
             set
             {
                 if (value < minValue)
-                    currentValue = minValue;                
+                    currentValue = minValue;
                 else
                     if (value > maxValue)
-                        currentValue = maxValue;
-                    else
-                        currentValue = value;
+                    currentValue = maxValue;
+                else
+                    currentValue = value;
             }
         }
 
-        public HealthPoints(int maxValue): this(maxValue, 0, maxValue)
+        public HealthPoints(int maxValue) : this(maxValue, 0, maxValue)
         {
         }
     }
