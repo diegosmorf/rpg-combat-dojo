@@ -302,5 +302,51 @@ namespace CodingDojo.Combat.Tests
             });
         }
 
+        [Test]
+        public void When_Wizard_RunHealMagic_Then_LogInfo()
+        {
+            //arrange            
+            var magicDice = new FakeDice(new DiceConfig(1));
+
+            var actor = new Wizard("Wizard Actor");
+            var turn = new Turn(new MagicHealAction(magicDice));
+
+            //act            
+            turn.Run(actor, actor);
+            //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(turn.LogInfo.Damage, Is.EqualTo(0));
+                Assert.That(turn.LogInfo.Action, Is.EqualTo(ActionType.MagicHeal));
+            });
+        }
+
+        [Test]
+        public void When_Wizard_RunHealMagic_Then_LogInfo_With_Values()
+        {
+            //arrange            
+            var magicDice = new FakeDice(new DiceConfig(1));
+
+            var actor = new Wizard("Wizard Actor");
+            var turn = new Turn(new MagicHealAction(magicDice));
+
+            //act            
+            turn.Run(actor, actor);
+            //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(turn.LogInfo.Damage, Is.EqualTo(0));
+                Assert.That(turn.LogInfo.Action, Is.EqualTo(ActionType.MagicHeal));
+                Assert.That(turn.LogInfo.Actor, Is.Not.Null);
+                Assert.That(turn.LogInfo.Target, Is.Not.Null);
+            });
+            AssertCharacterInfo(actor, turn.LogInfo.Actor);
+            AssertCharacterInfo(actor, turn.LogInfo.Target);
+        }
+
     }
 }

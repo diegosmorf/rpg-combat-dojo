@@ -78,5 +78,130 @@ namespace CodingDojo.Combat.Tests
             Assert.That(exception.Message, Is.EqualTo(message));
 
         }
+
+        [Test]
+        public void When_Create_Player_Empty_Name_Then_Raise_Exception()
+        {
+            //arrange            
+            var message = "Name cannot be empty";
+
+            //act
+            var exception = Assert.Throws<ArgumentException>(() => new Character(""));
+
+            //assert            
+            Assert.That(exception.Message, Is.EqualTo(message));
+
+        }
+
+        [Test]
+        public void When_Health_Set_Negative_Value_Then_Set_Zero()
+        {
+            //arrange
+            var player = new Soldier();
+
+            //act
+            player.ApplyDamage(player.Health.MaxValue + 1);
+
+            //assert            
+            Assert.That(player.Health.Value, Is.EqualTo(0));
+
+        }
+
+        [Test]
+        public void When_Health_Set_GreatThanMax_Value_Then_Set_MaxValue()
+        {
+            //arrange
+            var player = new Soldier();
+
+            //act
+            player.ApplyHeal(player.Health.MaxValue + 1);
+
+            //assert            
+            Assert.That(player.Health.Value, Is.EqualTo(player.Health.MaxValue));
+
+        }
+
+        [Test]
+        public void When_Health_Set_Zero_Value_Then_Player_IsDead()
+        {
+            //arrange
+            var player = new Soldier();
+
+            //act
+            player.ApplyDamage(player.Health.MaxValue);
+
+            //assert            
+            Assert.That(player.IsAlive, Is.False);
+
+        }
+
+        [Test]
+        public void When_Copy_Player_Then_Validate_Values()
+        {
+            //arrange
+            var player = new Soldier("Soldier 1");
+
+            //act
+            var copy = player.Copy();
+
+            //assert            
+            Assert.Multiple(() =>
+            {
+                Assert.That(player.Health.Value, Is.EqualTo(copy.Health.Value));
+                Assert.That(player.Level, Is.EqualTo(copy.Level));
+                Assert.That(player.Strength, Is.EqualTo(copy.Strength));
+                Assert.That(player.Defense, Is.EqualTo(copy.Defense));
+                Assert.That(player.IsAlive, Is.True);
+                Assert.That(player.Job, Is.EqualTo(copy.Job));
+            });
+
+        }
+
+        [Test]
+        public void When_ApplyDamage_Then_Validate_Health()
+        {
+            //arrange
+            var player = new Soldier();
+            var damage = 10;
+            var expectedHealth = player.Health.Value - damage;
+
+            //act
+            player.ApplyDamage(damage);
+
+            //assert            
+            Assert.That(player.Health.Value, Is.EqualTo(expectedHealth));
+
+        }
+
+        [Test]
+        public void When_ApplyHeal_Then_Validate_Health()
+        {
+            //arrange
+            var player = new Soldier();
+            player.Health.Value = 100;
+            var heal = 10;
+            var expectedHealth = player.Health.Value + heal;
+
+            //act            
+            player.ApplyHeal(heal);
+
+            //assert            
+            Assert.That(player.Health.Value, Is.EqualTo(expectedHealth));
+        }
+
+        [Test]
+        public void When_IncreaseExperience_Then_Validate_LevelUp()
+        {
+            //arrange
+            var player = new Soldier();
+            var experience = LevelUpConfig.ExperienceToLevelUp;
+            var expectedLevel = player.Level + 1;
+
+            //act
+            player.IncreaseExperience(experience);
+
+            //assert            
+            Assert.That(player.Level, Is.EqualTo(expectedLevel));
+        }
     }
 }

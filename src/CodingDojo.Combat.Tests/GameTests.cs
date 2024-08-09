@@ -124,5 +124,38 @@ namespace CodingDojo.Combat.Tests
                 Assert.That(battle.ProcessedTurns, Is.LessThan(maxTurns));
             });
         }
+
+        [Test]
+        public void When_Run_Battle_Then_RunTurns_Until_TheEnd()
+        {
+            //arrange
+            var maxTurns = 100;
+            var game = new Game();
+            var player1 = new Soldier("Soldier 1");
+            var player2 = new Soldier("Soldier 2");
+            var players = new[] { player1, player2 };
+            var battle = game.SetupBattle(players, maxTurns);
+
+            //act                        
+            battle.Run();
+
+            //assert
+            AssertBattleHasFinished(battle, maxTurns);
+        }
+
+        [Test]
+        public void When_Run_Battle_Then_RunTurns_Until_TheEnd_With_DefaultPlayers()
+        {
+            //arrange
+            var maxTurns = 100;
+            var game = new Game();
+            var battle = game.SetupBattle(maxTurns);
+
+            //act                        
+            battle.Run();
+
+            //assert
+            AssertBattleHasFinished(battle, maxTurns);
+        }        
     }
 }
