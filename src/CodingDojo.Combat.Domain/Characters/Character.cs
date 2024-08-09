@@ -2,7 +2,6 @@
 
 namespace CodingDojo.Combat.Domain.Characters
 {
-
     public class Character : ICharacter
     {
         protected int experience = 0;
@@ -50,17 +49,18 @@ namespace CodingDojo.Combat.Domain.Characters
         public void LevelUp()
         {
             Level++;
-            Health.Reset(Health.MaxValue + 200);
-            Strength += 10;
-            Defense += 10;
-            Magic += 10;
+            Health.Reset(Health.MaxValue + LevelUpConfig.Health);
+            Strength += LevelUpConfig.Strength;
+            Defense += LevelUpConfig.Defense;
+            Magic += LevelUpConfig.Magic;
         }
 
-        public void IncreaseExperience(int experience) 
+        public void IncreaseExperience(int experience)
         {
             this.experience += experience;
 
-            if (experience > 100) {
+            if (experience >= LevelUpConfig.ExperienceToLevelUp)
+            {
                 LevelUp();
                 this.experience = 0;
             }

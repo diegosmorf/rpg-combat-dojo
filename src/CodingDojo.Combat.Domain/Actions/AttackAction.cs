@@ -17,7 +17,7 @@ namespace CodingDojo.Combat.Domain.Actions
             var experience = CalculateExperience(target.Health.Value, damage);
 
             target.ApplyDamage(damage);
-            actor.IncreaseExperience(experience);            
+            actor.IncreaseExperience(experience);
 
             return new TurnLogInfo()
             {

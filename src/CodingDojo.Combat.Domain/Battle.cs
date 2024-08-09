@@ -6,13 +6,13 @@ using CodingDojo.Combat.Domain.Turns;
 namespace CodingDojo.Combat.Domain
 {
     public class Battle(IDice normalDice, IDice magicDice, int maxTurns = 100) : IBattle
-    {        
+    {
         protected readonly IDice magicDice = magicDice;
         protected readonly IDice normalDice = normalDice;
         protected readonly int maxTurns = maxTurns;
 
-        public Battle(IDice normalDice, int maxTurns = 100):this(normalDice, normalDice, maxTurns)
-        {                
+        public Battle(IDice normalDice, int maxTurns = 100) : this(normalDice, normalDice, maxTurns)
+        {
         }
 
         public int ProcessedTurns { get { return Turns.Count; } }
@@ -65,6 +65,6 @@ namespace CodingDojo.Combat.Domain
             }
 
             return new AttackAction(normalDice);
-        }        
+        }
     }
 }
