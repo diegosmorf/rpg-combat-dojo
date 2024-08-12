@@ -63,7 +63,7 @@ namespace CodingDojo.Combat.Tests
             battle.Players.Add(new Soldier("Soldier 2"));
 
             //act                                    
-            battle.Run();
+            battle.RunAutomatic();
 
             //assert
             Assert.Multiple(() =>
@@ -100,7 +100,7 @@ namespace CodingDojo.Combat.Tests
             var battle = game.SetupBattle(players, maxTurns);
 
             //act                        
-            battle.Run();
+            battle.RunAutomatic();
 
             //assert
             AssertBattleHasFinished(battle, maxTurns);
@@ -126,7 +126,7 @@ namespace CodingDojo.Combat.Tests
         }
 
         [Test]
-        public void When_Run_Battle_Then_RunTurns_Until_TheEnd()
+        public void When_Run_Battle_Soldier_Soldier_Then_RunTurns_Until_TheEnd()
         {
             //arrange
             var maxTurns = 100;
@@ -137,7 +137,7 @@ namespace CodingDojo.Combat.Tests
             var battle = game.SetupBattle(players, maxTurns);
 
             //act                        
-            battle.Run();
+            battle.RunAutomatic();
 
             //assert
             AssertBattleHasFinished(battle, maxTurns);
@@ -152,7 +152,7 @@ namespace CodingDojo.Combat.Tests
             var battle = game.SetupBattle(maxTurns);
 
             //act                        
-            battle.Run();
+            battle.RunAutomatic();
 
             //assert
             AssertBattleHasFinished(battle, maxTurns);

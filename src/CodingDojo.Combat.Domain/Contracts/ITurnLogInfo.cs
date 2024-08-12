@@ -4,11 +4,11 @@ namespace CodingDojo.Combat.Domain.Contracts
 {
     public interface ITurnLogInfo
     {
-        ICharacter? Actor { get; set; }
-        IDiceLogInfo? Dice { get; set; }
-        int Damage { get; set; }
-        int HealthToIncrease { get; set; }
-        ICharacter? Target { get; set; }
-        ActionType Action { get; set; }
+        ICharacter Actor { get; }
+        IDiceLogInfo DiceLogInfo { get; }
+        int Damage { get;  }
+        int HealthToIncrease { get;  }
+        ICharacter Target { get;  }
+        ActionType ActionType { get;  }
     }
 }

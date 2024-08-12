@@ -28,6 +28,8 @@ namespace CodingDojo.Combat.Tests
             turn.Run(actor, target);
 
             //assert
+            Assert.That(turn.LogInfo, Is.Not.Null);
+
             Assert.Multiple(() =>
             {
                 Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
@@ -58,7 +60,7 @@ namespace CodingDojo.Combat.Tests
                 Assert.That(damage, Is.EqualTo(turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Actor, Is.Not.Null);
                 Assert.That(turn.LogInfo.Target, Is.Not.Null);
-                Assert.That(turn.LogInfo.Action, Is.EqualTo(ActionType.Attack));
+                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.Attack));
             });
             AssertCharacterInfo(actor, turn.LogInfo.Actor);
             AssertCharacterInfo(target, turn.LogInfo.Target);
@@ -268,7 +270,7 @@ namespace CodingDojo.Combat.Tests
             {
                 Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
-                Assert.That(turn.LogInfo.Action, Is.EqualTo(ActionType.MagicFireBall));
+                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicFireBall));
             });
         }
 
@@ -298,7 +300,7 @@ namespace CodingDojo.Combat.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(actor.Health.Value, Is.EqualTo(expectedHealth));
-                Assert.That(turn.LogInfo.Action, Is.EqualTo(ActionType.MagicHeal));
+                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicHeal));
             });
         }
 
@@ -319,7 +321,7 @@ namespace CodingDojo.Combat.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(0));
-                Assert.That(turn.LogInfo.Action, Is.EqualTo(ActionType.MagicHeal));
+                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicHeal));
             });
         }
 
@@ -340,7 +342,7 @@ namespace CodingDojo.Combat.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(turn.LogInfo.Damage, Is.EqualTo(0));
-                Assert.That(turn.LogInfo.Action, Is.EqualTo(ActionType.MagicHeal));
+                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicHeal));
                 Assert.That(turn.LogInfo.Actor, Is.Not.Null);
                 Assert.That(turn.LogInfo.Target, Is.Not.Null);
             });

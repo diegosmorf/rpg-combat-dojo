@@ -8,6 +8,6 @@
         bool HasFinished { get; }
         List<ICharacter> Players { get; }
         List<ITurn> Turns { get; }
-        void Run();
+        void RunAutomatic();
     }
 }

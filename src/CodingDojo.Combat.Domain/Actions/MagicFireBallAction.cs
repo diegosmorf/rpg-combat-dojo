@@ -20,18 +20,13 @@ namespace CodingDojo.Combat.Domain.Actions
             target.ApplyDamage(damage);
             actor.IncreaseExperience(experience);
 
-            return new TurnLogInfo()
-            {
-                Action = actionType,
-                Actor = actor.Copy(),
-                Target = target.Copy(),
-                Damage = damage,
-                Dice = new DiceLogInfo()
-                {
-                    ActorValue = actorDiceValue,
-                    TargetValue = targetDiceValue
-                }
-            };
+            return new TurnLogInfo(
+                 actor.Copy(),
+                 target.Copy(),
+                 new DiceLogInfo(actorDiceValue, targetDiceValue),
+                 damage,
+                 0,
+                 actionType);
         }
     }
 }

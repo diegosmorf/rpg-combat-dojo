@@ -6,7 +6,7 @@ namespace CodingDojo.Combat.Domain.Turns
     {
         protected readonly IBaseAction action = action;
 
-        public ITurnLogInfo LogInfo { get; protected set; } = new TurnLogInfo();
+        public ITurnLogInfo? LogInfo { get; protected set; }
 
         public void Run(ICharacter actor, ICharacter target)
         {

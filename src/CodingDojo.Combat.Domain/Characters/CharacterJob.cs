@@ -3,8 +3,8 @@
     public enum CharacterJob
     {
         Soldier,
+        Knight,
         Wizard,
-        Archer,
-        Knight
+        Archer        
     }
 }

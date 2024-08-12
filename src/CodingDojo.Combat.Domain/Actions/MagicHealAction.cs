@@ -18,17 +18,13 @@ namespace CodingDojo.Combat.Domain.Actions
             target.ApplyHeal(healthToIncrease);
             actor.IncreaseExperience(experience);
 
-            return new TurnLogInfo()
-            {
-                Action = actionType,
-                Actor = actor.Copy(),
-                Target = target.Copy(),
-                HealthToIncrease = healthToIncrease,
-                Dice = new DiceLogInfo()
-                {
-                    ActorValue = actorDiceValue
-                }
-            };
+            return new TurnLogInfo(
+                actor.Copy(),
+                target.Copy(),
+                new DiceLogInfo(actorDiceValue),
+                0,
+                healthToIncrease,                
+                actionType);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CodingDojo.Combat.Domain
         public bool HasFinished { get { return Winner != null || ProcessedTurns >= maxTurns; } }
         public List<ICharacter> Players { get; protected set; } = [];
         public List<ITurn> Turns { get; protected set; } = [];
-        public void Run()
+        public void RunAutomatic()
         {
             while (!HasFinished)
             {
@@ -32,18 +32,27 @@ namespace CodingDojo.Combat.Domain
 
                     if (action is MagicHealAction)
                         target = actor;
-
-                    var turn = new Turn(action);
-                    turn.Run(actor, target);
-                    Turns.Add(turn);
+                    
+                    RunTurn(actor, target, action); 
 
                     if (!target.IsAlive)
-                    {
-                        Winner = actor;
-                        Looser = target;
+                    {                       
                         break;
                     }
                 }
+            }
+        }
+
+        public void RunTurn(ICharacter actor, ICharacter target, IBaseAction action)
+        {            
+            var turn = new Turn(action);
+            turn.Run(actor, target);
+            Turns.Add(turn);
+
+            if (!target.IsAlive)
+            {
+                Winner = actor;
+                Looser = target;                
             }
         }
 
