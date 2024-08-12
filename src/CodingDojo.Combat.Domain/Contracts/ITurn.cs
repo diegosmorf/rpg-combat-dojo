@@ -2,7 +2,6 @@
 {
     public interface ITurn
     {
-        ITurnLogInfo? LogInfo { get; }
-        void Run(ICharacter actor, ICharacter target);
+        ITurnLogInfo Run(ICharacter actor, ICharacter target);
     }
 }

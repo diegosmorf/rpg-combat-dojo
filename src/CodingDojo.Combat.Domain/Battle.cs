@@ -15,12 +15,12 @@ namespace CodingDojo.Combat.Domain
         {
         }
 
-        public int ProcessedTurns { get { return Turns.Count; } }
+        public int ProcessedTurns { get { return LogTurns.Count; } }
         public ICharacter? Winner { get; private set; }
         public ICharacter? Looser { get; protected set; }
         public bool HasFinished { get { return Winner != null || ProcessedTurns >= maxTurns; } }
         public List<ICharacter> Players { get; protected set; } = [];
-        public List<ITurn> Turns { get; protected set; } = [];
+        public List<ITurnLogInfo> LogTurns { get; protected set; } = [];
         public void RunAutomatic()
         {
             while (!HasFinished)
@@ -32,11 +32,11 @@ namespace CodingDojo.Combat.Domain
 
                     if (action is MagicHealAction)
                         target = actor;
-                    
-                    RunTurn(actor, target, action); 
+
+                    RunTurn(actor, target, action);
 
                     if (!target.IsAlive)
-                    {                       
+                    {
                         break;
                     }
                 }
@@ -44,26 +44,26 @@ namespace CodingDojo.Combat.Domain
         }
 
         public void RunTurn(ICharacter actor, ICharacter target, IBaseAction action)
-        {            
+        {
             var turn = new Turn(action);
-            turn.Run(actor, target);
-            Turns.Add(turn);
+            var log = turn.Run(actor, target);
+            LogTurns.Add(log);
 
             if (!target.IsAlive)
             {
                 Winner = actor;
-                Looser = target;                
+                Looser = target;
             }
         }
 
         private IBaseAction GetAction(ICharacter actor, ICharacter target)
         {
-            if (actor.Health.Value <= 50)
+            if (actor.Health.Value <= 100)
             {
                 return new MagicHealAction(magicDice);
             }
 
-            if (actor is Wizard)
+            if (actor is Wizard || actor is Archer)
             {
                 return new MagicFireBallAction(normalDice, magicDice);
             }

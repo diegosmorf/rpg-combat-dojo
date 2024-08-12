@@ -156,6 +156,6 @@ namespace CodingDojo.Combat.Tests
 
             //assert
             AssertBattleHasFinished(battle, maxTurns);
-        }        
+        }
     }
 }

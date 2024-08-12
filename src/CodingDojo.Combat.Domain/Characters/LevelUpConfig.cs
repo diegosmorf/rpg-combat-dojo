@@ -1,6 +1,7 @@
 ﻿namespace CodingDojo.Combat.Domain.Characters
 {
-    public static class LevelUpConfig {
+    public static class LevelUpConfig
+    {
         public const int ExperienceToLevelUp = 100;
         public const int Health = 200;
         public const int Strength = 10;

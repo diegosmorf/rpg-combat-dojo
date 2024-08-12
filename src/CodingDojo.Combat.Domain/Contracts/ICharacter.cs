@@ -12,6 +12,7 @@ namespace CodingDojo.Combat.Domain.Contracts
         int Magic { get; }
         bool IsAlive { get; }
         CharacterJob Job { get; }
+        int Experience { get; }
         ICharacter Copy();
         void ApplyDamage(int damage);
         void ApplyHeal(int health);

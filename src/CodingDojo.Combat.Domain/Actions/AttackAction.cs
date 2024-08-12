@@ -25,7 +25,7 @@ namespace CodingDojo.Combat.Domain.Actions
                 new DiceLogInfo(actorDiceValue, targetDiceValue),
                 damage,
                 0,
-                actionType);            
+                actionType);
         }
     }
 }

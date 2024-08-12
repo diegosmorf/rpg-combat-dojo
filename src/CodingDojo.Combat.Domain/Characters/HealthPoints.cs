@@ -16,7 +16,7 @@
                     currentValue = MinValue;
                 else
                     if (value > MaxValue)
-                        currentValue = MaxValue;
+                    currentValue = MaxValue;
                 else
                     currentValue = value;
             }

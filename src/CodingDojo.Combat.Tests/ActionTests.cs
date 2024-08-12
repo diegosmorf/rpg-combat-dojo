@@ -25,15 +25,15 @@ namespace CodingDojo.Combat.Tests
             var health = target.Health.Value;
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
 
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - log.Damage));
+                Assert.That(log.Damage, Is.EqualTo(damage));
             });
         }
 
@@ -52,18 +52,18 @@ namespace CodingDojo.Combat.Tests
             var turn = new Turn(new AttackAction(normalDice));
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
             Assert.Multiple(() =>
             {
-                Assert.That(damage, Is.EqualTo(turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Actor, Is.Not.Null);
-                Assert.That(turn.LogInfo.Target, Is.Not.Null);
-                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.Attack));
+                Assert.That(damage, Is.EqualTo(log.Damage));
+                Assert.That(log.Actor, Is.Not.Null);
+                Assert.That(log.Target, Is.Not.Null);
+                Assert.That(log.ActionType, Is.EqualTo(ActionType.Attack));
             });
-            AssertCharacterInfo(actor, turn.LogInfo.Actor);
-            AssertCharacterInfo(target, turn.LogInfo.Target);
+            AssertCharacterInfo(actor, log.Actor);
+            AssertCharacterInfo(target, log.Target);
         }
 
         private static void AssertCharacterInfo(ICharacter player, ICharacter log)
@@ -101,14 +101,14 @@ namespace CodingDojo.Combat.Tests
             var health = target.Health.Value;
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - log.Damage));
+                Assert.That(log.Damage, Is.EqualTo(damage));
             });
         }
 
@@ -133,14 +133,14 @@ namespace CodingDojo.Combat.Tests
             var health = target.Health.Value;
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - log.Damage));
+                Assert.That(log.Damage, Is.EqualTo(damage));
             });
         }
 
@@ -164,14 +164,14 @@ namespace CodingDojo.Combat.Tests
             var health = target.Health.Value;
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - log.Damage));
+                Assert.That(log.Damage, Is.EqualTo(damage));
             });
         }
 
@@ -195,14 +195,14 @@ namespace CodingDojo.Combat.Tests
             var health = target.Health.Value;
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - log.Damage));
+                Assert.That(log.Damage, Is.EqualTo(damage));
             });
         }
 
@@ -226,14 +226,14 @@ namespace CodingDojo.Combat.Tests
             var health = target.Health.Value;
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
+                Assert.That(target.Health.Value, Is.EqualTo(health - log.Damage));
+                Assert.That(log.Damage, Is.EqualTo(damage));
             });
         }
 
@@ -262,15 +262,15 @@ namespace CodingDojo.Combat.Tests
             var health = target.Health.Value;
 
             //act            
-            turn.Run(actor, target);
+            var log = turn.Run(actor, target);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(target.Health.Value, Is.EqualTo(health - turn.LogInfo.Damage));
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(damage));
-                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicFireBall));
+                Assert.That(target.Health.Value, Is.EqualTo(health - log.Damage));
+                Assert.That(log.Damage, Is.EqualTo(damage));
+                Assert.That(log.ActionType, Is.EqualTo(ActionType.MagicFireBall));
             });
         }
 
@@ -293,14 +293,14 @@ namespace CodingDojo.Combat.Tests
 
             //act            
             actor.ApplyDamage(damage);
-            turn.Run(actor, actor);
+            var log = turn.Run(actor, actor);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
                 Assert.That(actor.Health.Value, Is.EqualTo(expectedHealth));
-                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicHeal));
+                Assert.That(log.ActionType, Is.EqualTo(ActionType.MagicHeal));
             });
         }
 
@@ -314,14 +314,14 @@ namespace CodingDojo.Combat.Tests
             var turn = new Turn(new MagicHealAction(magicDice));
 
             //act            
-            turn.Run(actor, actor);
+            var log = turn.Run(actor, actor);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(0));
-                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicHeal));
+                Assert.That(log.Damage, Is.EqualTo(0));
+                Assert.That(log.ActionType, Is.EqualTo(ActionType.MagicHeal));
             });
         }
 
@@ -335,19 +335,19 @@ namespace CodingDojo.Combat.Tests
             var turn = new Turn(new MagicHealAction(magicDice));
 
             //act            
-            turn.Run(actor, actor);
+            var log = turn.Run(actor, actor);
             //assert
-            Assert.That(turn.LogInfo, Is.Not.Null);
+            Assert.That(log, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(turn.LogInfo.Damage, Is.EqualTo(0));
-                Assert.That(turn.LogInfo.ActionType, Is.EqualTo(ActionType.MagicHeal));
-                Assert.That(turn.LogInfo.Actor, Is.Not.Null);
-                Assert.That(turn.LogInfo.Target, Is.Not.Null);
+                Assert.That(log.Damage, Is.EqualTo(0));
+                Assert.That(log.ActionType, Is.EqualTo(ActionType.MagicHeal));
+                Assert.That(log.Actor, Is.Not.Null);
+                Assert.That(log.Target, Is.Not.Null);
             });
-            AssertCharacterInfo(actor, turn.LogInfo.Actor);
-            AssertCharacterInfo(actor, turn.LogInfo.Target);
+            AssertCharacterInfo(actor, log.Actor);
+            AssertCharacterInfo(actor, log.Target);
         }
 
     }

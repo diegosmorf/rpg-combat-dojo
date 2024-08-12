@@ -8,70 +8,94 @@ namespace CodingDojo.Combat.ConsoleApp
     public static class Program
     {
         private const string gameName = "CodingDojo RPG Battle Game";
+        private const int maxTurns = 100;
 
         public static void Main()
         {
-            PrintWelcomeGame();            
-            var game = new Game();
-            var maxTurns = 100;
+            PrintWelcomeGame();
+            PrintGame();
+            PrintEndGame();
+        }
 
-            while (AcceptPlayBattle())
+        private static void PrintGame()
+        {
+            var game = new Game();
+
+            while (UserAcceptPlayBattle())
             {
-                var player1 = PrintSelectPlayer(1);
-                var player2 = PrintSelectPlayer(2);
-                
+                var player1 = PrintSelectPlayer(ConsoleColor.Green, 1);
+                var player2 = PrintSelectPlayer(ConsoleColor.Yellow, 2);
+
                 var players = new[] { player1, player2 };
                 var battle = game.SetupBattle(players, maxTurns);
                 battle.RunAutomatic();
 
-                foreach (var turn in battle.Turns)
+                for (int i = 0; i < battle.LogTurns.Count; i++)
                 {
-                    PrintTurn(turn.LogInfo);
-                }                
+                    var turn = battle.LogTurns[i];
+                    PrintTurn(i, turn);
+                }
 
                 PrintBattle(battle);
             }
-
-            PrintEndGame();
-           
         }
 
         private static void PrintWelcomeGame()
         {
             Console.Clear();
-            Console.WriteLine($"-----------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.White;
+            PrintLine();
             Console.WriteLine($"Welcome to {gameName}");
-            Console.WriteLine($"-----------------------------------------------------");
         }
 
-        private static ICharacter PrintSelectPlayer(int player)
+        private static void PrintLine()
         {
-            Console.Clear();
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"Let's define Player: {player}");
-            Console.WriteLine($"Select your Character Job:");
-            Console.WriteLine($"-----------------------------------------------------");
+            Console.WriteLine($"---------------------------------------------------------------------------------------------");
+        }
 
-            var soldier = new Soldier();
-            var knight = new Knight();
-            var wizard = new Wizard();
-            var archer = new Archer();
+        private static ICharacter PrintSelectPlayer(ConsoleColor color, int player)
+        {
+            var defaultName = $"Player {player}";
+            var retry = 1;
+            var maxRetries = 3;
 
-            PrintCharacter(1, soldier);
-            PrintCharacter(2, knight);
-            PrintCharacter(3, wizard);
-            PrintCharacter(4, archer);
+            while (retry <= maxRetries)
+            {
+                try
+                {
+                    retry++;
+                    Console.ForegroundColor = color;
+                    Console.Clear();
+                    PrintLine();
+                    Console.WriteLine($"PLAYER {player} -  Select your Character Job:");
+                    PrintLine();
 
-            Console.WriteLine($"Please select an option: ");
-            var option = Console.ReadLine() ?? "1";
-            Console.WriteLine($"You selected: {option}");
+                    PrintCharacter("1", new Soldier(), true);
+                    PrintCharacter("2", new Knight(), true);
+                    PrintCharacter("3", new Wizard(), true);
+                    PrintCharacter("4", new Archer(), true);
 
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"Now, you can type a Name:");
-            string name = Console.ReadLine() ?? $"Default Player {player}";
+                    Console.WriteLine($"Please select a valid option (retry: {retry} ... ");
+                    var option = Console.ReadLine() ?? "1";
+                    Console.WriteLine($"You selected: {option}");
 
-            return CreatePlayer(option, name);
+                    PrintLine();
+                    Console.WriteLine($"Now, you can type a Name:");
+                    var name = Console.ReadLine();
 
+                    if (string.IsNullOrEmpty(name))
+                        name = defaultName;
+
+                    return CreatePlayer(option, name);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+
+            return CreatePlayer("1", defaultName);
         }
 
         private static ICharacter CreatePlayer(string option, string name) => option switch
@@ -82,25 +106,16 @@ namespace CodingDojo.Combat.ConsoleApp
             "4" => new Archer(name),
             _ => new Soldier(name)
         };
-
-        private static void PrintCharacter(int number, ICharacter character)
-        {            
-            Console.WriteLine();
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"({number}): {character.Job} | HP: {character.Health.Value} | STR: {character.Strength} | DEF: {character.Defense} | MAG: {character.Magic}");
-
-        }
-
-        private static bool AcceptPlayBattle()
-        {            
-            Console.WriteLine();
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"Let's play a RPG Battle ? ");
-            Console.WriteLine($"-----------------------------------------------------");
+        private static bool UserAcceptPlayBattle()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            PrintLine();
+            Console.WriteLine($"Would you like to play a new RPG Battle ? ");
+            PrintLine();
             Console.WriteLine($"1- Yes");
             Console.WriteLine($"2- No");
 
-            Console.WriteLine($"Please select an option: ");
+            Console.WriteLine($"Please select a valid option ... ");
             var option = Console.ReadLine();
             Console.WriteLine($"You selected: {option}");
 
@@ -112,45 +127,49 @@ namespace CodingDojo.Combat.ConsoleApp
         }
 
         private static void PrintBattle(IBattle battle)
-        {            
-            Console.WriteLine($"-----------------------------------------------------");
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            PrintLine();
             Console.WriteLine($"Battle Finished: {battle.HasFinished}");
             Console.WriteLine($"Processed Turns : {battle.ProcessedTurns}");
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"Winner: {battle.Winner?.Name}");
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"IsAlive: {battle.Winner?.IsAlive}");
-            Console.WriteLine($"Job: {battle.Winner?.Job}");
-            Console.WriteLine($"HP: {battle.Winner?.Health.Value}");
-            Console.WriteLine($"IsAlive: {battle.Winner?.IsAlive}");
-            Console.WriteLine($"-----------------------------------------------------");            
-            Console.WriteLine($"Looser: {battle.Looser?.Name}");
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"Job: {battle.Looser?.Job}");
-            Console.WriteLine($"HP: {battle.Looser?.Health.Value}");
-            Console.WriteLine($"IsAlive: {battle.Looser?.IsAlive}");
-            Console.WriteLine($"-----------------------------------------------------");
+            PrintLine();
+            PrintCharacter("Winner", battle.Winner, true);
+            PrintCharacter("Looser", battle.Looser, true);
         }
 
         private static void PrintEndGame()
         {
-            Console.WriteLine();            
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"Goodbye. Thanks for play {gameName} ");            
-            Console.WriteLine($"-----------------------------------------------------");
+            Console.WriteLine();
+            PrintLine();
+            Console.WriteLine($"Goodbye. Thanks for play {gameName} ");
+            PrintLine();
             Console.ReadLine();
         }
 
-        private static void PrintTurn(ITurnLogInfo log)
+        private static void PrintTurn(int number, ITurnLogInfo log)
         {
-            Console.WriteLine();
-            Console.WriteLine($"-----------------------------------------------------");
-            Console.WriteLine($"Actor: {log.Actor.Name} | HP: {log.Actor.Health.Value} | Job: {log.Actor.Job} | Level: {log.Actor.Level}");
-            Console.WriteLine($"Target: {log.Target.Name} | HP: {log.Target.Health.Value} | Job: {log.Target.Job} | Level: {log.Target.Level}" );
-            Console.WriteLine($"Action: {log.ActionType}");
-            Console.WriteLine($"Damage: {log.Damage}");
-            Console.WriteLine($"Heal: {log.HealthToIncrease}");
+            Console.ForegroundColor = (number % 2) == 0 ? ConsoleColor.Yellow : ConsoleColor.Green;
 
+            PrintLine();
+            Console.WriteLine($"Turn: {number + 1}");
+            PrintCharacter($"Actor {log.Actor.Name}", log.Actor);
+            PrintCharacter($"Target {log.Target.Name}", log.Target);
+            Console.WriteLine($"Action: {log.ActionType} | Damage: {log.Damage} | Heal: {log.HealthToIncrease}");
+        }
+
+        private static void PrintCharacter(string message, ICharacter? character, bool printLine = false)
+        {
+            if (character == null)
+            {
+                return;
+            }
+
+            Console.WriteLine($"{message} | {character.Job} | HP: {character.Health.Value} | STR: {character.Strength} | DEF: {character.Defense} | MAG: {character.Magic} | LV: {character.Level} | EXP: {character.Experience} | IsAlive: {character.IsAlive}");
+
+            if (printLine)
+            {
+                PrintLine();
+            }
         }
     }
 }

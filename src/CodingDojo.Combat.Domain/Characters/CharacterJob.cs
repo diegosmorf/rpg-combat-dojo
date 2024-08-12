@@ -5,6 +5,6 @@
         Soldier,
         Knight,
         Wizard,
-        Archer        
+        Archer
     }
 }

@@ -6,9 +6,9 @@ namespace CodingDojo.Combat.Domain.Contracts
     {
         ICharacter Actor { get; }
         IDiceLogInfo DiceLogInfo { get; }
-        int Damage { get;  }
-        int HealthToIncrease { get;  }
-        ICharacter Target { get;  }
-        ActionType ActionType { get;  }
+        int Damage { get; }
+        int HealthToIncrease { get; }
+        ICharacter Target { get; }
+        ActionType ActionType { get; }
     }
 }

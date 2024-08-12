@@ -7,7 +7,7 @@
         ICharacter? Looser { get; }
         bool HasFinished { get; }
         List<ICharacter> Players { get; }
-        List<ITurn> Turns { get; }
+        List<ITurnLogInfo> LogTurns { get; }
         void RunAutomatic();
     }
 }

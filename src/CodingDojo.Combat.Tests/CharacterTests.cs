@@ -61,6 +61,7 @@ namespace CodingDojo.Combat.Tests
                 Assert.That(player.Defense, Is.EqualTo(expectedDefense));
                 Assert.That(player.Magic, Is.EqualTo(expectedMagic));
                 Assert.That(player.IsAlive, Is.True);
+                Assert.That(player.Experience, Is.Zero);
             });
         }
 

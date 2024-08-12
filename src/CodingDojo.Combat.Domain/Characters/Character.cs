@@ -3,8 +3,7 @@
 namespace CodingDojo.Combat.Domain.Characters
 {
     public class Character : ICharacter
-    {
-        protected int experience = 0;
+    {        
         public int Level { get; protected set; } = 1;
         public string Name { get; protected set; }
         public HealthPoints Health { get; protected set; }
@@ -13,6 +12,8 @@ namespace CodingDojo.Combat.Domain.Characters
         public int Magic { get; protected set; }
         public CharacterJob Job { get; protected set; }
         public bool IsAlive { get { return Health.Value > 0; } }
+
+        public int Experience { get; protected set; } = 0;
 
         public Character(string name = "", int health = 0, int strength = 0, int defense = 0, int magic = 0, CharacterJob job = CharacterJob.Soldier)
         {
@@ -57,12 +58,12 @@ namespace CodingDojo.Combat.Domain.Characters
 
         public void IncreaseExperience(int experience)
         {
-            this.experience += experience;
+            Experience += experience;
 
             if (experience >= LevelUpConfig.ExperienceToLevelUp)
             {
                 LevelUp();
-                this.experience = 0;
+                Experience = 0;
             }
         }
     }

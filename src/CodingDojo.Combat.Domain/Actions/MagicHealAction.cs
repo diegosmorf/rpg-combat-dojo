@@ -23,7 +23,7 @@ namespace CodingDojo.Combat.Domain.Actions
                 target.Copy(),
                 new DiceLogInfo(actorDiceValue),
                 0,
-                healthToIncrease,                
+                healthToIncrease,
                 actionType);
         }
     }
