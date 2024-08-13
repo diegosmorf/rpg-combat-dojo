@@ -13,12 +13,20 @@
             set
             {
                 if (value < MinValue)
+                {
                     currentValue = MinValue;
+                }
                 else
+                {
                     if (value > MaxValue)
-                    currentValue = MaxValue;
-                else
-                    currentValue = value;
+                    {
+                        currentValue = MaxValue;
+                    }
+                    else
+                    {
+                        currentValue = value;
+                    }
+                }
             }
         }
 
