@@ -58,12 +58,12 @@ namespace CodingDojo.Combat.Domain
 
         private IBaseAction GetAction(ICharacter actor, ICharacter target)
         {
-            if (actor.Health.Value <= 100)
+            if (actor.Health.Value <= 150)
             {
                 return new MagicHealAction(magicDice);
             }
 
-            if (actor is Wizard || actor is Archer)
+            if (actor is Wizard)
             {
                 return new MagicFireBallAction(normalDice, magicDice);
             }
