@@ -103,3 +103,7 @@ dotnet test
 1. Critical Attack/Magic
 1. Use Items
 1. Battles will happen Team x Team (max 3 players each)
+
+## Iteration Five
+
+1. Use Gen AI improve battle strategy
